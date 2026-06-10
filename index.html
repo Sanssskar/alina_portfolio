@@ -1,983 +1,972 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chef Élan Moreau — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Petit+Formal+Script&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ivory:#faf6ef;
-  --ivory2:#f2ead8;
-  --ivory3:#e8dfc5;
-  --ink:#1c150a;
-  --ink2:#3a2e1a;
-  --ink3:#6b5a3e;
-  --gold:#b07d2a;
-  --gold2:#c9982e;
-  --gold3:#e8c76a;
-  --rust:#7a2e14;
-  --sage:#4a5e42;
-  --flip-dur:750ms;
-}
-html,body{width:100%;height:100%;overflow:hidden;background:#0f0b06;font-family:'Lora',Georgia,serif;color:var(--ink);-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Chef's Portfolio — Fullscreen Tasting Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --page-cream: #f7f3e8;
+            --text-dark: #2c1810;
+            --text-medium: #4a3328;
+            --text-light: #6b5040;
+            --gold-bright: #d4af37;
+            --gold-muted: #c9a96e;
+            --gold-dark: #b8860b;
+            --leather-dark: #3a1f16;
+            --leather-mid: #4e2e20;
+            --leather-light: #5c3828;
+            
+            /* Responsive Dimensions */
+            --binding-inset: clamp(6px, 2.5vw, 25px);
+            --page-padding-h: clamp(20px, 5vw, 100px);
+            --page-padding-v: clamp(20px, 6dvh, 100px);
+        }
 
-/* ── AMBIENT BACKGROUND ── */
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 25%,#231608 0%,#0a0704 100%);z-index:0}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ── SCENE ── */
-#scene{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;perspective:2400px}
+        body {
+            width: 100vw;
+            height: 100dvh;
+            background: #110805;
+            font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* ── BOOK WRAP ── */
-#book-wrap{
-  position:relative;
-  width:min(940px,96vw);
-  height:min(640px,88vh);
-  transform-style:preserve-3d;
-}
-#book-wrap::after{
-  content:'';
-  position:absolute;
-  bottom:-36px;left:8%;width:84%;height:36px;
-  background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(0,0,0,.6) 0%,transparent 100%);
-  filter:blur(8px);pointer-events:none;
-}
+        .scene {
+            perspective: 2500px;
+            perspective-origin: 50% 50%;
+            width: 100vw;
+            height: 100dvh;
+            display: flex;
+            position: relative;
+        }
 
-/* ── COVER ── */
-#book-cover{
-  position:absolute;inset:0;
-  background:linear-gradient(160deg,#1e1105 0%,#140d04 45%,#221508 100%);
-  border-radius:3px 14px 14px 3px;
-  box-shadow:-8px 0 0 0 #080502,0 0 0 1px #3d2810,6px 12px 48px rgba(0,0,0,.85),inset 3px 0 12px rgba(176,125,42,.1);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  z-index:50;cursor:pointer;overflow:hidden;
-  transition:transform var(--flip-dur) cubic-bezier(.38,0,.18,1),opacity .5s ease;
-  backface-visibility:hidden;
-  transform-origin:left center;
-}
-#book-cover::before{content:'';position:absolute;inset:14px;border:1px solid rgba(176,125,42,.22);border-radius:2px 12px 12px 2px;pointer-events:none}
-#book-cover::after{content:'';position:absolute;inset:22px;border:1px solid rgba(176,125,42,.1);border-radius:1px 10px 10px 1px;pointer-events:none}
-.spine-vline{position:absolute;left:42px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(176,125,42,.3) 20%,rgba(176,125,42,.3) 80%,transparent)}
+        .book {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+        }
 
-.cover-crest{
-  width:110px;height:110px;border-radius:50%;
-  border:1px solid rgba(176,125,42,.45);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:26px;position:relative;
-}
-.cover-crest::before{content:'';position:absolute;inset:7px;border-radius:50%;border:1px solid rgba(176,125,42,.2)}
-.cover-crest svg{width:58px;height:58px;opacity:.8}
-#book-cover h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.4rem,2.8vw,2rem);
-  font-weight:400;letter-spacing:.18em;
-  color:var(--gold2);
-  text-align:center;margin-bottom:6px;
-}
-.cover-subtitle{
-  font-family:'Lora',serif;font-style:italic;
-  font-size:clamp(.85rem,1.7vw,1rem);
-  color:rgba(201,152,46,.55);letter-spacing:.1em;
-  text-align:center;margin-bottom:32px;
-}
-.open-hint{
-  font-family:'Lora',serif;font-size:.73rem;
-  letter-spacing:.4em;text-transform:uppercase;
-  color:rgba(176,125,42,.45);
-  animation:pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:.45}50%{opacity:.9}}
-#book-cover.open{
-  transform:perspective(1800px) rotateY(-125deg) translateZ(-30px);
-  opacity:0;pointer-events:none;
-}
+        /* ───────────────────────────────────────────────────────
+           THE COVER 
+           ─────────────────────────────────────────────────────── */
+        .menu-cover {
+            position: absolute;
+            inset: 0;
+            z-index: 100; /* Sits on top of the pages */
+            background: linear-gradient(175deg,
+                    var(--leather-light) 0%, var(--leather-mid) 15%, var(--leather-dark) 40%,
+                    #2a150d 60%, #150804 80%, var(--leather-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: left center;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s ease 0.4s, visibility 1.2s;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: 10px 0 50px rgba(0,0,0,0.8);
+        }
 
-/* ── OPEN BOOK ── */
-#book-open{
-  position:absolute;inset:0;
-  display:flex;
-  opacity:0;pointer-events:none;
-  transition:opacity .5s ease;
-  transform-style:preserve-3d;
-  perspective:2000px;
-  perspective-origin:50% 50%;
-}
-#book-open.vis{opacity:1;pointer-events:all}
+        /* When opened, swing out and fade */
+        .menu-cover.is-open {
+            transform: rotateY(-90deg) scale(1.02);
+            opacity: 0;
+            visibility: hidden;
+        }
 
-#spine-center{
-  position:absolute;left:50%;top:0;bottom:0;
-  transform:translateX(-50%);width:18px;
-  background:linear-gradient(to right,#b89650,#e8d590 42%,#c9a850 58%,#907030);
-  z-index:30;box-shadow:0 0 18px rgba(0,0,0,.5);border-radius:1px;
-}
-#spine-center::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 16px,rgba(0,0,0,.07) 16px,rgba(0,0,0,.07) 17px);
-  pointer-events:none;
-}
+        /* Inner spine shadow to simulate the fold */
+        .cover-hinge {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: clamp(20px, 5vw, 70px);
+            background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 30%, transparent 100%);
+            border-right: 1px solid rgba(255,255,255,0.03);
+            z-index: 2;
+        }
 
-/* ── PAGE STACKS ── */
-.stack{position:absolute;top:6px;bottom:6px;z-index:2;pointer-events:none;transition:width .7s cubic-bezier(.38,0,.18,1)}
-.stack-l{
-  left:-3px;width:4%;border-radius:8px 0 0 8px;
-  background:repeating-linear-gradient(to right,#ddd4b0 0,#ddd4b0 1.5px,#c4b890 1.5px,#c4b890 2.5px,#d0c4a0 2.5px,#d0c4a0 3px);
-  box-shadow:inset -1px 0 4px rgba(0,0,0,.12);
-}
-.stack-r{
-  right:-3px;width:7%;border-radius:0 8px 8px 0;
-  background:repeating-linear-gradient(to left,#ddd4b0 0,#ddd4b0 1.5px,#c4b890 1.5px,#c4b890 2.5px,#d0c4a0 2.5px,#d0c4a0 3px);
-  box-shadow:inset 1px 0 4px rgba(0,0,0,.12);
-}
+        /* Elaborate gold border */
+        .cover-inner-border {
+            position: absolute;
+            inset: clamp(15px, 3vw, 40px);
+            border: 2px solid transparent;
+            background: linear-gradient(175deg, rgba(212, 175, 55, 0.9) 0%, rgba(200, 160, 50, 0.5) 30%, rgba(160, 120, 30, 0.3) 60%, rgba(200, 160, 50, 0.6) 100%) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: 3;
+        }
 
-/* ── SPREAD ── */
-.spread{
-  position:absolute;inset:0;
-  display:flex;opacity:0;pointer-events:none;
-  z-index:5;transform-style:preserve-3d;
-  backface-visibility:hidden;
-  will-change:transform,opacity;
-}
-.spread.active{opacity:1;pointer-events:all;z-index:10}
+        /* Cover Typography */
+        .cover-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7));
+        }
 
-/* ── PAGE-FLIP ANIMATIONS ── */
+        .cover-eyebrow {
+            font-family: 'Great Vibes', 'Georgia', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--gold-bright);
+            margin-bottom: -10px;
+            opacity: 0.9;
+        }
 
-/* Forward flip: current spread folds away to the left, hinged near spine */
-.spread.flip-out-fwd{
-  z-index:15!important;pointer-events:none;
-  transform-origin:3% 50%;
-  animation:flipOutFwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-in-fwd{
-  z-index:12!important;
-  transform-origin:97% 50%;
-  animation:flipInFwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-out-bwd{
-  z-index:15!important;pointer-events:none;
-  transform-origin:97% 50%;
-  animation:flipOutBwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-in-bwd{
-  z-index:12!important;
-  transform-origin:3% 50%;
-  animation:flipInBwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
+        .cover-title {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 25px;
+            background: linear-gradient(to bottom, #fcebc6 0%, #d4af37 45%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-@keyframes flipOutFwd{
-  0%  {transform:rotateY(0deg) scaleY(1);opacity:1}
-  12% {transform:rotateY(-8deg) scaleY(0.992);opacity:1}
-  28% {transform:rotateY(-32deg) scaleY(0.97);opacity:1}
-  48% {transform:rotateY(-72deg) scaleY(0.94);opacity:.85}
-  64% {transform:rotateY(-110deg) scaleY(0.935);opacity:.55}
-  80% {transform:rotateY(-148deg) scaleY(0.96);opacity:.22}
-  92% {transform:rotateY(-170deg) scaleY(0.99);opacity:.06}
-  100%{transform:rotateY(-179deg) scaleY(1);opacity:0}
-}
-@keyframes flipInFwd{
-  0%  {transform:rotateY(22deg) scaleY(0.96);opacity:.3}
-  25% {transform:rotateY(14deg) scaleY(0.975);opacity:.7}
-  50% {transform:rotateY(6deg) scaleY(0.99);opacity:.9}
-  75% {transform:rotateY(1.5deg) scaleY(0.998);opacity:.98}
-  100%{transform:rotateY(0deg) scaleY(1);opacity:1}
-}
-@keyframes flipOutBwd{
-  0%  {transform:rotateY(0deg) scaleY(1);opacity:1}
-  12% {transform:rotateY(8deg) scaleY(0.992);opacity:1}
-  28% {transform:rotateY(32deg) scaleY(0.97);opacity:1}
-  48% {transform:rotateY(72deg) scaleY(0.94);opacity:.85}
-  64% {transform:rotateY(110deg) scaleY(0.935);opacity:.55}
-  80% {transform:rotateY(148deg) scaleY(0.96);opacity:.22}
-  92% {transform:rotateY(170deg) scaleY(0.99);opacity:.06}
-  100%{transform:rotateY(179deg) scaleY(1);opacity:0}
-}
-@keyframes flipInBwd{
-  0%  {transform:rotateY(-22deg) scaleY(0.96);opacity:.3}
-  25% {transform:rotateY(-14deg) scaleY(0.975);opacity:.7}
-  50% {transform:rotateY(-6deg) scaleY(0.99);opacity:.9}
-  75% {transform:rotateY(-1.5deg) scaleY(0.998);opacity:.98}
-  100%{transform:rotateY(0deg) scaleY(1);opacity:1}
-}
+        .cover-divider {
+            width: clamp(80px, 20vw, 150px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+            margin: 0 auto 25px auto;
+        }
 
-/* ── CURL / SHADOW OVERLAY ── */
-.spread .curl{
-  position:absolute;inset:0;pointer-events:none;z-index:9;opacity:0;border-radius:inherit;
-}
-/* Forward flip curl: shadow sweeps from right to left */
-.spread.flip-out-fwd .curl{
-  background:linear-gradient(to left,
-    rgba(0,0,0,.55) 0%,
-    rgba(0,0,0,.35) 8%,
-    rgba(0,0,0,.12) 28%,
-    rgba(0,0,0,.02) 50%,
-    transparent 65%);
-  animation:curlSweepFwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-in-fwd .curl{
-  background:linear-gradient(to left,
-    rgba(0,0,0,.3) 0%,
-    rgba(0,0,0,.08) 20%,
-    transparent 45%);
-  animation:curlRevealFwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-out-bwd .curl{
-  background:linear-gradient(to right,
-    rgba(0,0,0,.55) 0%,
-    rgba(0,0,0,.35) 8%,
-    rgba(0,0,0,.12) 28%,
-    rgba(0,0,0,.02) 50%,
-    transparent 65%);
-  animation:curlSweepBwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-in-bwd .curl{
-  background:linear-gradient(to right,
-    rgba(0,0,0,.3) 0%,
-    rgba(0,0,0,.08) 20%,
-    transparent 45%);
-  animation:curlRevealBwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
+        .cover-subtitle {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-size: clamp(1.2rem, 3.5vw, 2rem);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--gold-muted);
+            text-transform: uppercase;
+        }
 
-@keyframes curlSweepFwd{
-  0%  {opacity:0}
-  10% {opacity:.4}
-  30% {opacity:.9}
-  55% {opacity:.95}
-  75% {opacity:.6}
-  90% {opacity:.15}
-  100%{opacity:0}
-}
-@keyframes curlRevealFwd{
-  0%  {opacity:.5}
-  30% {opacity:.35}
-  60% {opacity:.12}
-  100%{opacity:0}
-}
-@keyframes curlSweepBwd{
-  0%  {opacity:0}
-  10% {opacity:.4}
-  30% {opacity:.9}
-  55% {opacity:.95}
-  75% {opacity:.6}
-  90% {opacity:.15}
-  100%{opacity:0}
-}
-@keyframes curlRevealBwd{
-  0%  {opacity:.5}
-  30% {opacity:.35}
-  60% {opacity:.12}
-  100%{opacity:0}
-}
+        .cover-instruction {
+            margin-top: clamp(50px, 10vh, 100px);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            letter-spacing: 0.25em;
+            color: rgba(212, 175, 55, 0.8);
+            animation: pulseCover 2s infinite;
+            text-transform: uppercase;
+        }
 
-/* ── PAGE EDGE GLINT ── */
-.spread .curl::after{
-  content:'';position:absolute;top:0;bottom:0;width:4px;opacity:0;
-  background:rgba(255,240,210,.35);
-  filter:blur(1px);
-}
-.spread.flip-out-fwd .curl::after{
-  right:0;
-  animation:glintFwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-.spread.flip-out-bwd .curl::after{
-  left:0;
-  animation:glintBwd var(--flip-dur) cubic-bezier(.34,.0,.14,1.0) forwards;
-}
-@keyframes glintFwd{
-  0%{opacity:0}15%{opacity:.7}35%{opacity:.55}55%{opacity:.2}70%{opacity:0}100%{opacity:0}
-}
-@keyframes glintBwd{
-  0%{opacity:0}15%{opacity:.7}35%{opacity:.55}55%{opacity:.2}70%{opacity:0}100%{opacity:0}
-}
+        @keyframes pulseCover {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
 
-/* ── PAGES ── */
-.page{flex:1;position:relative;overflow:hidden}
-.page-l{
-  background:linear-gradient(to right,var(--ivory3) 0%,var(--ivory2) 100%);
-  border-radius:14px 0 0 14px;
-  box-shadow:inset -10px 0 20px rgba(0,0,0,.07),-5px 0 24px rgba(0,0,0,.28);
-}
-.page-r{
-  background:linear-gradient(to left,var(--ivory3) 0%,var(--ivory2) 100%);
-  border-radius:0 14px 14px 0;
-  box-shadow:inset 10px 0 20px rgba(0,0,0,.07),5px 0 24px rgba(0,0,0,.28);
-}
-.page::before{
-  content:'';position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-  opacity:.7;pointer-events:none;z-index:0;
-}
-.page-r.lined::after{
-  content:'';position:absolute;inset:0;
-  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 28px,rgba(176,125,42,.07) 28px,rgba(176,125,42,.07) 29px);
-  pointer-events:none;z-index:0;
-}
-.pc{
-  position:relative;z-index:1;height:100%;
-  padding:clamp(22px,3.5%,42px) clamp(18px,4.5%,44px);
-  display:flex;flex-direction:column;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;scrollbar-color:rgba(176,125,42,.25) transparent;
-}
-.pc::-webkit-scrollbar{width:3px}
-.pc::-webkit-scrollbar-thumb{background:rgba(176,125,42,.25);border-radius:2px}
-.pnum{
-  position:absolute;bottom:14px;font-family:'Lora',serif;font-style:italic;
-  font-size:.75rem;color:rgba(60,45,18,.4);letter-spacing:.09em;z-index:2;
-}
-.page-l .pnum{left:26px}
-.page-r .pnum{right:26px}
+        /* ───────────────────────────────────────────────────────
+           PAGES AND BINDING
+           ─────────────────────────────────────────────────────── */
+        .book-binding {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(175deg,
+                    var(--leather-light) 0%, var(--leather-mid) 8%, var(--leather-dark) 25%,
+                    #2a150d 40%, #150804 50%, #2a150d 60%,
+                    var(--leather-dark) 75%, var(--leather-mid) 92%, var(--leather-light) 100%);
+            z-index: 0;
+        }
 
-/* ── TYPOGRAPHY ── */
-.ch-label{
-  font-family:'Lora',serif;font-size:.65rem;
-  letter-spacing:.45em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:5px;
-}
-.ch-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.55rem,3.2vw,2.3rem);
-  font-weight:400;line-height:1.18;color:var(--ink);margin-bottom:12px;
-}
-.ch-title em{font-style:italic;color:var(--rust)}
-.rule{display:flex;align-items:center;gap:10px;margin:11px 0}
-.rule-line{flex:1;height:1px;background:var(--gold);opacity:.3}
-.rule-gem{width:6px;height:6px;border:1px solid var(--gold);transform:rotate(45deg);opacity:.55;flex-shrink:0}
-.body{
-  font-size:clamp(.8rem,1.4vw,0.93rem);
-  line-height:1.88;color:var(--ink2);
-}
-.body+.body{margin-top:9px}
-.drop::first-letter{
-  font-family:'Playfair Display',serif;
-  font-size:3.6em;font-weight:700;
-  float:left;line-height:.76;
-  margin-right:7px;margin-top:5px;
-  color:var(--gold);
-}
-.florish{text-align:center;color:rgba(176,125,42,.38);font-size:1.1rem;margin:9px 0;letter-spacing:.35em}
+        .book-binding::before {
+            content: '';
+            position: absolute;
+            inset: clamp(3px, 1vw, 10px);
+            border: 1px solid transparent;
+            background: linear-gradient(175deg,
+                    rgba(212, 175, 55, 0.7) 0%, rgba(200, 160, 50, 0.4) 30%,
+                    rgba(160, 120, 30, 0.2) 60%, rgba(200, 160, 50, 0.4) 100%) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
 
-/* ── PULL QUOTE ── */
-.pq{padding:14px 18px;border-left:2.5px solid var(--gold);background:rgba(176,125,42,.055);margin:13px 0}
-.pq p{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.95rem,1.85vw,1.15rem);line-height:1.65;color:var(--ink)}
-.pq cite{display:block;font-size:.72rem;letter-spacing:.18em;color:var(--gold2);text-transform:uppercase;margin-top:7px}
+        .book-binding::after {
+            content: '';
+            position: absolute;
+            inset: var(--binding-inset);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* ── TOC ── */
-.toc-list{list-style:none;margin:9px 0}
-.toc-list li{display:flex;align-items:baseline;gap:0;padding:6.5px 0;border-bottom:1px dotted rgba(176,125,42,.18);cursor:pointer;transition:color .15s}
-.toc-list li:hover .toc-ttl{color:var(--rust)}
-.toc-ch{font-family:'Lora',serif;font-style:italic;font-size:.75rem;color:var(--gold);width:24px;flex-shrink:0}
-.toc-ttl{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--ink2);flex:1;transition:color .15s}
-.toc-pg{font-family:'Lora',serif;font-style:italic;font-size:.73rem;color:rgba(60,45,18,.38)}
+        .pages-container {
+            position: absolute;
+            inset: var(--binding-inset);
+            display: flex;
+            z-index: 2;
+            background: var(--page-cream);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
 
-/* ── TIMELINE ── */
-.tl-item{display:grid;grid-template-columns:70px 1fr;gap:0 13px;margin-bottom:12px;align-items:start}
-.tl-year{font-family:'Playfair Display',serif;font-size:.72rem;color:var(--gold);text-align:right;padding-top:3px;letter-spacing:.04em}
-.tl-body{padding-left:13px;border-left:1px solid rgba(176,125,42,.3);position:relative}
-.tl-body::before{content:'';position:absolute;left:-4px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.65}
-.tl-role{font-family:'Playfair Display',serif;font-weight:500;font-size:.87rem;color:var(--ink);margin-bottom:1px}
-.tl-place{font-size:.75rem;color:var(--ink3);font-style:italic}
+        .page-left,
+        .page-right {
+            width: 50%;
+            height: 100%;
+            background: transparent;
+            position: relative;
+            padding: var(--page-padding-v) var(--page-padding-h);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            z-index: 3;
+        }
+        
+        .page-left::-webkit-scrollbar, .page-right::-webkit-scrollbar, .flip-face::-webkit-scrollbar {
+            display: none;
+        }
 
-/* ── AWARDS ── */
-.aw-row{display:flex;align-items:flex-start;gap:11px;padding:7.5px 0;border-bottom:1px solid rgba(176,125,42,.09)}
-.aw-row:last-child{border-bottom:none}
-.aw-icon{font-size:1.2rem;line-height:1;flex-shrink:0}
-.aw-text strong{display:block;font-family:'Playfair Display',serif;font-weight:500;font-size:.87rem;color:var(--ink)}
-.aw-text span{font-size:.73rem;color:var(--ink3);font-style:italic}
+        .page-left { box-shadow: inset -12px 0 25px -10px rgba(0, 0, 0, 0.15); }
+        .page-right { box-shadow: inset 12px 0 25px -10px rgba(0, 0, 0, 0.15); }
 
-/* ── RECIPE CARD ── */
-.rc{border:1px solid rgba(176,125,42,.25);background:rgba(176,125,42,.04);padding:15px 17px;margin:9px 0;position:relative}
-.rc::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:1px solid rgba(176,125,42,.1);pointer-events:none}
-.rc-name{font-family:'Playfair Display',serif;font-size:.78rem;letter-spacing:.18em;color:var(--rust);text-transform:uppercase;margin-bottom:7px}
-.rc-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:9px}
-.rc-meta span{font-size:.73rem;color:var(--ink3);font-style:italic}
-.ing{list-style:none;columns:2;column-gap:14px;margin-bottom:9px}
-.ing li{font-size:.76rem;color:var(--ink2);padding:2px 0;break-inside:avoid;line-height:1.5}
-.ing li::before{content:'· ';color:var(--gold)}
-.rn{font-style:italic;font-size:.75rem;color:rgba(122,46,20,.68);border-top:1px solid rgba(176,125,42,.18);padding-top:7px;margin-top:7px}
+        .page-left::before,
+        .page-right::before,
+        .flip-face::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 119, 90, 0.015) 2px,
+                    rgba(139, 119, 90, 0.015) 3px);
+        }
 
-/* ── PILLARS ── */
-.pillar{display:flex;gap:11px;margin-bottom:13px;align-items:flex-start}
-.p-num{font-family:'Playfair Display',serif;font-size:1.45rem;color:rgba(176,125,42,.22);line-height:1;flex-shrink:0;width:26px}
-.p-body strong{display:block;font-family:'Playfair Display',serif;font-weight:500;font-size:.92rem;color:var(--ink);margin-bottom:2px}
-.p-body p{font-size:.77rem;line-height:1.67;color:var(--ink3)}
+        .page-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
-/* ── DISH GRID ── */
-.dg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
-.dc{border:1px solid rgba(176,125,42,.2);overflow:hidden;background:rgba(176,125,42,.04)}
-.dph{width:100%;aspect-ratio:5/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'Lora',serif;font-style:italic;font-size:.7rem;color:rgba(60,45,18,.38)}
-.dl{padding:5px 9px;font-family:'Lora',serif;font-style:italic;font-size:.75rem;color:var(--rust);text-align:center}
+        .page-content h1 {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(1.8rem, 4.5vw, 3.8rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 0.03em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
 
-/* ── PORTRAIT ── */
-.portrait{width:100%;aspect-ratio:3/4;border:1px solid rgba(176,125,42,.28);padding:5px;background:rgba(176,125,42,.04);margin-bottom:9px;position:relative;overflow:hidden}
-.portrait-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#e8dfc5,#d5c9a5)}
-.portrait-ph svg{opacity:.18;width:58px}
-.portrait-ph span{font-family:'Lora',serif;font-style:italic;font-size:.75rem;color:rgba(60,45,18,.38);letter-spacing:.07em}
-.img-cap{font-family:'Lora',serif;font-style:italic;font-size:.74rem;color:rgba(60,45,18,.45);text-align:center;letter-spacing:.04em;margin-top:3px}
+        .page-content h2 {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(1.1rem, 2.5vw, 2rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: 0.04em;
+            margin-bottom: clamp(8px, 2vw, 16px);
+            position: relative;
+            display: inline-block;
+        }
 
-/* ── NAV ARROWS ── */
-.page-arrow{
-  position:fixed;top:50%;transform:translateY(-50%);
-  width:48px;height:48px;
-  border-radius:50%;
-  border:1px solid rgba(176,125,42,.4);
-  background:rgba(15,11,6,.78);
-  backdrop-filter:blur(10px);
-  color:var(--gold2);
-  font-size:1.2rem;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  z-index:100;
-  opacity:0;pointer-events:none;
-  transition:opacity .4s,background .2s,border-color .2s,transform .2s;
-}
-.page-arrow.vis{opacity:1;pointer-events:all}
-.page-arrow:hover:not(:disabled){background:rgba(176,125,42,.18);border-color:var(--gold2);transform:translateY(-50%) scale(1.08)}
-.page-arrow:active:not(:disabled){transform:translateY(-50%) scale(.96)}
-.page-arrow:disabled{opacity:.22!important;cursor:not-allowed;pointer-events:none}
-#arr-prev{left:clamp(10px,3vw,32px)}
-#arr-next{right:clamp(10px,3vw,32px)}
-.arr-icon{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+        .page-content h2.ornament::after {
+            content: '';
+            display: block;
+            width: 55%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold-muted), transparent);
+            margin-top: 6px;
+            border-radius: 1px;
+        }
 
-/* ── CLOSE ── */
-#close-btn{
-  position:fixed;top:clamp(12px,2.5vh,22px);right:clamp(12px,2.5vw,24px);
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(176,125,42,.32);
-  background:rgba(15,11,6,.78);backdrop-filter:blur(8px);
-  color:var(--gold2);font-size:.88rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  z-index:100;opacity:0;pointer-events:none;
-  transition:opacity .35s,background .2s;
-}
-#close-btn.vis{opacity:1;pointer-events:all}
-#close-btn:hover{background:rgba(176,125,42,.18)}
+        .page-content p {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+            line-height: 1.6;
+            color: var(--text-medium);
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
 
-/* ── SEASON GRID ── */
-.seas{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:10px}
-.seas-item .seas-name{font-family:'Playfair Display',serif;font-size:.65rem;letter-spacing:.32em;color:var(--gold);margin-bottom:4px}
-.seas-item p{font-size:.75rem;line-height:1.72;color:var(--ink2)}
+        .ornament-divider {
+            text-align: center;
+            color: var(--gold-muted);
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            letter-spacing: 8px;
+            margin: clamp(10px, 2vh, 20px) 0;
+            opacity: 0.7;
+        }
 
-/* ── CENTERED TITLE PAGE ── */
-.title-center{justify-content:center;align-items:center;text-align:center}
-.script-name{font-family:'Petit Formal Script',cursive;font-size:clamp(2rem,4.5vw,3rem);color:var(--rust);margin-bottom:8px;line-height:1.2}
+        .menu-list {
+            list-style: none;
+            padding: 0;
+        }
 
-@media(max-width:600px){
-  .ing{columns:1}
-  .dg{grid-template-columns:1fr}
-  .tl-item{grid-template-columns:52px 1fr}
-  #book-wrap{width:98vw;height:82vh}
-  .pc{padding:14px 13px}
-}
-</style>
+        .menu-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-bottom: 1px dotted rgba(180, 150, 100, 0.4);
+            font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+            color: var(--text-medium);
+            letter-spacing: 0.02em;
+        }
+
+        .menu-list li .item-name {
+            font-weight: 500;
+            color: var(--text-dark);
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .menu-list li .item-detail {
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.85em;
+        }
+
+        .menu-list li .item-year {
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: 0.9em;
+            white-space: nowrap;
+            min-width: 50px;
+            text-align: right;
+            margin-left: 10px;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', 'Georgia', cursive;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--text-dark);
+            text-align: center;
+            margin-top: 15px;
+            opacity: 0.85;
+            letter-spacing: 0.05em;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: clamp(10px, 3dvh, 40px);
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+            color: var(--gold-muted);
+            letter-spacing: 0.05em;
+            z-index: 3;
+            opacity: 0.7;
+        }
+        
+        .page-left .page-number { left: var(--page-padding-h); }
+        .page-right .page-number { right: var(--page-padding-h); }
+
+        .page-shadow {
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 50%;
+            pointer-events: none;
+            z-index: 8;
+            opacity: 0;
+        }
+
+        .page-shadow.left { left: 0; background: linear-gradient(to left, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%); }
+        .page-shadow.right { right: 0; background: linear-gradient(to right, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%); }
+
+        .flip-element {
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 50%;
+            z-index: 10;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            display: none;
+        }
+
+        .flip-element.flipping-forward { left: 50%; transform-origin: left center; }
+        .flip-element.flipping-backward { left: 0; transform-origin: right center; }
+
+        .flip-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            background: var(--page-cream);
+            padding: var(--page-padding-v) var(--page-padding-h);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .flip-front { z-index: 2; transform: rotateY(0deg); box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05); }
+        .flip-back { z-index: 1; transform: rotateY(180deg); box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05); }
+
+        .lighting {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .flipping-forward #flipFrontLighting { background: linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 100%); }
+        .flipping-forward #flipBackLighting { background: linear-gradient(to left, rgba(0,0,0,0.3) 0%, transparent 100%); }
+        .flipping-backward #flipFrontLighting { background: linear-gradient(to left, rgba(0,0,0,0.3) 0%, transparent 100%); }
+        .flipping-backward #flipBackLighting { background: linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 100%); }
+
+        @keyframes flipForwardAnim { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-180deg); } }
+        @keyframes flipBackwardAnim { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(180deg); } }
+        @keyframes shadowLiftOff { 0% { opacity: 0; } 30% { opacity: 0.6; } 100% { opacity: 0; } }
+        @keyframes shadowLandOn { 0% { opacity: 0; } 70% { opacity: 0.6; } 100% { opacity: 0; } }
+        @keyframes lightingTurnAway { 0% { opacity: 0; } 100% { opacity: 0.7; } }
+        @keyframes lightingTurnTowards { 0% { opacity: 0.7; } 100% { opacity: 0; } }
+
+        /* ───────────────────────────────────────────────────────
+           Mobile Optimizations & Single Page Mode Overrides 
+           ─────────────────────────────────────────────────────── */
+        @media (max-width: 800px) {
+            .page-right { display: none !important; }
+            .page-left { width: 100% !important; box-shadow: none !important; }
+            .page-shadow { display: none !important; }
+            .lighting { display: none !important; }
+            
+            .flip-element { width: 100% !important; left: 0 !important; }
+            .flip-element.single-forward, .flip-element.single-backward { transform-origin: left center !important; }
+            .flip-back { display: none !important; }
+
+            .page-number, .flip-face .page-number { left: 50% !important; right: auto !important; transform: translateX(-50%) !important; }
+            .menu-list li .item-detail { display: none; }
+            .menu-list li { padding: 4px 0; }
+        }
+
+        @keyframes flipSingleForward { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-180deg); } }
+        @keyframes flipSingleBackward { 0% { transform: rotateY(-180deg); } 100% { transform: rotateY(0deg); } }
+    </style>
 </head>
 <body>
 
-<div id="scene">
-<div id="book-wrap">
+    <div class="scene">
+        <div class="book" id="book">
+            
+            <!-- Book Cover Overlay -->
+            <div class="menu-cover" id="menuCover">
+                <div class="cover-hinge"></div>
+                <div class="cover-inner-border"></div>
+                <div class="cover-content">
+                    <div class="cover-eyebrow">Executive Chef</div>
+                    <h1 class="cover-title">Marco Valentini</h1>
+                    <div class="cover-divider"></div>
+                    <h2 class="cover-subtitle">Tasting Menu</h2>
+                    <div class="cover-instruction">TAP TO OPEN</div>
+                </div>
+            </div>
 
-<!-- COVER -->
-<div id="book-cover" title="Open the portfolio">
-  <div class="spine-vline"></div>
-  <div class="cover-crest">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 7 C32 7 13 18 13 34 C13 47 21 55 32 57 C43 55 51 47 51 34 C51 18 32 7 32 7Z" stroke="#c9982e" stroke-width="1.1" fill="none"/>
-      <path d="M19 29 Q32 20 45 29" stroke="#c9982e" stroke-width=".9" fill="none"/>
-      <path d="M23 38 Q32 46 41 38" stroke="#c9982e" stroke-width=".9" fill="none"/>
-      <circle cx="32" cy="33" r="3.5" fill="#c9982e" opacity=".6"/>
-      <path d="M32 12 L32 8 M23 17 L20 14 M41 17 L44 14" stroke="#c9982e" stroke-width=".7" opacity=".45"/>
-    </svg>
-  </div>
-  <h1>Élan Moreau</h1>
-  <div class="cover-subtitle">Chef &amp; Culinary Artisan</div>
-  <div class="open-hint">Open · · ·</div>
-</div>
+            <!-- Fullscreen Edge Border -->
+            <div class="book-binding"></div>
+            
+            <div class="pages-container" id="pagesContainer">
+                <!-- Drop Shadows -->
+                <div class="page-shadow left" id="shadowLeft"></div>
+                <div class="page-shadow right" id="shadowRight"></div>
 
-<!-- OPEN BOOK -->
-<div id="book-open">
-  <div id="spine-center"></div>
-  <div class="stack stack-l" id="stk-l"></div>
-  <div class="stack stack-r" id="stk-r"></div>
+                <!-- Static Background Pages -->
+                <div class="page-left" id="pageLeft">
+                    <div class="page-content" id="leftContent"></div>
+                    <span class="page-number" id="leftPageNum"></span>
+                </div>
+                <div class="page-right" id="pageRight">
+                    <div class="page-content" id="rightContent"></div>
+                    <span class="page-number" id="rightPageNum"></span>
+                </div>
 
-  <!-- SPREAD 0: Title + TOC -->
-  <div class="spread active" data-s="0">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc title-center">
-        <div style="margin-bottom:16px">
-          <svg width="68" height="68" viewBox="0 0 64 64" fill="none">
-            <path d="M32 7 C32 7 13 18 13 34 C13 47 21 55 32 57 C43 55 51 47 51 34 C51 18 32 7 32 7Z" stroke="#b07d2a" stroke-width=".9" fill="none" opacity=".35"/>
-            <circle cx="32" cy="33" r="2.5" fill="#b07d2a" opacity=".28"/>
-          </svg>
+                <!-- 3D Turning Page -->
+                <div class="flip-element" id="flipElement">
+                    <div class="flip-face flip-front" id="flipFront">
+                        <div class="page-content" id="flipFrontContent"></div>
+                        <span class="page-number" id="flipFrontPageNum"></span>
+                        <div class="lighting" id="flipFrontLighting"></div>
+                    </div>
+                    <div class="flip-face flip-back" id="flipBack">
+                        <div class="page-content" id="flipBackContent"></div>
+                        <span class="page-number" id="flipBackPageNum"></span>
+                        <div class="lighting" id="flipBackLighting"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="ch-label" style="margin-bottom:3px">A Culinary Portfolio</div>
-        <div class="script-name">Élan<br>Moreau</div>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p style="font-family:'Lora',serif;font-style:italic;font-size:.86rem;color:rgba(60,45,18,.52);letter-spacing:.07em;line-height:1.75;max-width:210px;margin-top:6px">Where memory becomes flavour and the table becomes home</p>
-        <div class="florish" style="margin-top:22px">✦ ✦ ✦</div>
-        <p style="font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(176,125,42,.38);margin-top:auto">Est. 2009 · Paris &amp; Lyon</p>
-      </div>
-      <span class="pnum">i</span>
     </div>
-    <div class="page page-r lined">
-      <div class="pc">
-        <div class="ch-label" style="margin-bottom:3px">Contents</div>
-        <div class="rule"></div>
-        <ul class="toc-list" id="toc">
-          <li data-go="1"><span class="toc-ch">I</span><span class="toc-ttl">A Childhood of Smoke &amp; Saffron</span><span class="toc-pg">2</span></li>
-          <li data-go="2"><span class="toc-ch">II</span><span class="toc-ttl">Culinary Philosophy</span><span class="toc-pg">4</span></li>
-          <li data-go="3"><span class="toc-ch">III</span><span class="toc-ttl">Career &amp; Accolades</span><span class="toc-pg">6</span></li>
-          <li data-go="4"><span class="toc-ch">IV</span><span class="toc-ttl">Signature Dishes</span><span class="toc-pg">8</span></li>
-          <li data-go="5"><span class="toc-ch">V</span><span class="toc-ttl">From the Kitchen: Recipes</span><span class="toc-pg">10</span></li>
-          <li data-go="6"><span class="toc-ch">VI</span><span class="toc-ttl">The Seasons &amp; Sourcing</span><span class="toc-pg">12</span></li>
-          <li data-go="7"><span class="toc-ch">VII</span><span class="toc-ttl">À Table — Closing Words</span><span class="toc-pg">14</span></li>
-        </ul>
-        <div class="pq" style="margin-top:auto">
-          <p>"Every plate tells the story of where I have been."</p>
-          <cite>— Élan Moreau</cite>
-        </div>
-      </div>
-      <span class="pnum">ii</span>
-    </div>
-  </div>
 
-  <!-- SPREAD 1: Biography -->
-  <div class="spread" data-s="1">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter I</div>
-        <h2 class="ch-title">A Childhood of<br><em>Smoke &amp; Saffron</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body drop">Born in the medieval quarter of Lyon to a Provençal mother and a Moroccan father, Élan Moreau grew up between two worlds of extraordinary flavour. His earliest memory is not of a toy or a song, but of the hiss of butter meeting a hot copper pan in his grandmother's narrow kitchen, the window fogged with steam, lavender drying overhead.</p>
-        <p class="body" style="margin-top:10px">His mother, Hélène, taught him reverence for the season. Nothing was purchased that had not first been picked or bartered at the Saturday market. His father, Karim, revealed the power of spice — the slow bloom of ras el hanout in warm oil, the way a pinch of preserved lemon could make a dish breathe.</p>
-        <p class="body" style="margin-top:10px">At twelve, Élan began staging beside his uncle in a Lyon bouchon. By seventeen, he had memorised Escoffier. By nineteen, he had left for Paris.</p>
-      </div>
-      <span class="pnum">2</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="portrait">
-          <div class="portrait-ph">
-            <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="22" r="12" stroke="#3a2e1a" stroke-width="1.1"/><path d="M10 58 C10 42 54 42 54 58" stroke="#3a2e1a" stroke-width="1.1" fill="none"/></svg>
-            <span>Portrait — Chef Moreau</span>
-          </div>
-        </div>
-        <p class="img-cap">Chef Élan Moreau, Lyon, 2019</p>
-        <div class="rule" style="margin:11px 0"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body">"I do not cook cuisine. I cook memories given new form — a reimagining of every meal that ever made me feel completely at home."</p>
-        <p style="font-family:'Lora',serif;font-style:italic;font-size:.74rem;color:rgba(176,125,42,.58);letter-spacing:.09em;margin-top:7px">— Interview, Le Monde, 2021</p>
-      </div>
-      <span class="pnum">3</span>
-    </div>
-  </div>
+    <script>
+        (function() {
+            // ──────────────────────────────────────
+            // INITIALIZE COVER LOGIC
+            // ──────────────────────────────────────
+            const menuCover = document.getElementById('menuCover');
+            let isCoverOpen = false;
 
-  <!-- SPREAD 2: Philosophy -->
-  <div class="spread" data-s="2">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter II</div>
-        <h2 class="ch-title">Culinary<br><em>Philosophy</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body drop">Élan's approach defies any single school. It is rooted in classical French technique yet perpetually drawn toward the sun-warmed kitchens of North Africa and the rustic honesty of Lyonnaise cooking. He calls it <em>cuisine de mémoire</em> — the cooking of memory.</p>
-        <div class="rule" style="margin:13px 0"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div class="pillar"><div class="p-num">01</div><div class="p-body"><strong>Terroir above all</strong><p>Every ingredient must speak of a place. Élan sources his produce within 80 km of the restaurant, believing that proximity is integrity.</p></div></div>
-        <div class="pillar"><div class="p-num">02</div><div class="p-body"><strong>Nothing wasted</strong><p>The carcass becomes the consommé; the outer leaves become the oil. Wastefulness, he says, is an insult to the earth that gave us the ingredient.</p></div></div>
-        <div class="pillar"><div class="p-num">03</div><div class="p-body"><strong>Silence in the kitchen</strong><p>No music plays during service. Sound belongs on the plate — the crack of a crust, the whisper of a sauce poured tableside.</p></div></div>
-      </div>
-      <span class="pnum">4</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="pillar" style="margin-top:8px"><div class="p-num">04</div><div class="p-body"><strong>Seasonality as discipline</strong><p>The menu changes not weekly but daily, dictated entirely by what arrives at dawn from the farm. Regulars know to expect surprise.</p></div></div>
-        <div class="pillar"><div class="p-num">05</div><div class="p-body"><strong>The guest is a collaborator</strong><p>Élan designs each tasting menu as a conversation. He moves through the dining room before service, listening for what the evening requires.</p></div></div>
-        <div class="pq" style="margin:16px 0">
-          <p>"A dish without history is decoration. A dish with history is literature."</p>
-          <cite>— Élan Moreau, Atelier Masterclass, 2022</cite>
-        </div>
-        <div style="border:1px solid rgba(176,125,42,.25);padding:5px;background:rgba(176,125,42,.04);margin-top:4px">
-          <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#e4dbc5,#cfc3a0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-family:'Lora',serif;font-style:italic;font-size:.72rem;color:rgba(60,45,18,.35)">
-            <svg width="30" height="30" viewBox="0 0 36 36" fill="none"><rect x="4" y="8" width="28" height="20" rx="2" stroke="#3a2e1a" stroke-width=".9" opacity=".28"/><path d="M4 14 L32 14" stroke="#3a2e1a" stroke-width=".7" opacity=".18"/></svg>
-            Kitchen at Restaurant Nuance
-          </div>
-        </div>
-      </div>
-      <span class="pnum">5</span>
-    </div>
-  </div>
+            menuCover.addEventListener('click', (e) => {
+                e.stopPropagation(); // prevent triggering page flip
+                if (!isCoverOpen) {
+                    menuCover.classList.add('is-open');
+                    menuCover.style.pointerEvents = 'none';
+                    isCoverOpen = true;
+                }
+            });
 
-  <!-- SPREAD 3: Career -->
-  <div class="spread" data-s="3">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter III</div>
-        <h2 class="ch-title">Career &amp;<br><em>Accolades</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div style="margin-top:6px">
-          <div class="tl-item"><div class="tl-year">2009</div><div class="tl-body"><div class="tl-role">Commis Chef</div><div class="tl-place">L'Ambroisie, Paris — under Chef Bernard Pacaud</div></div></div>
-          <div class="tl-item"><div class="tl-year">2011</div><div class="tl-body"><div class="tl-role">Sous Chef</div><div class="tl-place">Le Bec, Lyon — leading the sauce station</div></div></div>
-          <div class="tl-item"><div class="tl-year">2013</div><div class="tl-body"><div class="tl-role">Stage, Noma</div><div class="tl-place">Copenhagen — fermentation and foraging research</div></div></div>
-          <div class="tl-item"><div class="tl-year">2015</div><div class="tl-body"><div class="tl-role">Head Chef</div><div class="tl-place">Maison Doré, Bordeaux — first solo kitchen</div></div></div>
-          <div class="tl-item"><div class="tl-year">2018</div><div class="tl-body"><div class="tl-role">Executive Chef &amp; Owner</div><div class="tl-place">Restaurant Nuance, Lyon — 18-seat tasting room</div></div></div>
-          <div class="tl-item"><div class="tl-year">2023</div><div class="tl-body"><div class="tl-role">Culinary Director</div><div class="tl-place">Hôtel de l'Île, Geneva — seasonal pop-up residency</div></div></div>
-        </div>
-      </div>
-      <span class="pnum">6</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="ch-label" style="margin-bottom:7px">Awards &amp; Recognition</div>
-        <div class="rule" style="margin-bottom:13px"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div class="aw-row"><div class="aw-icon">⭐</div><div class="aw-text"><strong>Michelin Star — Restaurant Nuance</strong><span>Guide Michelin France, 2020 &amp; retained 2021–2025</span></div></div>
-        <div class="aw-row"><div class="aw-icon">⭐⭐</div><div class="aw-text"><strong>Two Michelin Stars</strong><span>Guide Michelin France, 2022 — highest honour in Lyon</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🏅</div><div class="aw-text"><strong>Chef of the Year</strong><span>Le Fooding Awards, Paris, 2021</span></div></div>
-        <div class="aw-row"><div class="aw-icon">📖</div><div class="aw-text"><strong>Mémoire &amp; Feu — Cookbook</strong><span>Published by Éditions de la Table, 2023 — bestseller in 12 countries</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🎓</div><div class="aw-text"><strong>Maître Cuisinier de France</strong><span>Inducted 2024 — the nation's highest culinary recognition</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🌍</div><div class="aw-text"><strong>World's 50 Best — No. 22</strong><span>The World's 50 Best Restaurants, 2024</span></div></div>
-        <div class="florish" style="margin-top:12px">✦</div>
-      </div>
-      <span class="pnum">7</span>
-    </div>
-  </div>
+            // ──────────────────────────────────────
+            // CONTENT DATA
+            // ──────────────────────────────────────
+            const spreads = [{
+                left: {
+                    html: `
+                        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;height:100%;">
+                            <div style="font-family:'Great Vibes',cursive;font-size:clamp(3rem, 7vw, 5.5rem);color:#c9a96e;opacity:0.7;line-height:1;">~</div>
+                            <div style="font-family:'Playfair Display',serif;font-size:clamp(0.75rem, 1.6vw, 1rem);color:#8b7355;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:8px;">A Culinary Journey</div>
+                            <div class="ornament-divider">✦ ✦ ✦</div>
+                            <p style="font-style:italic;color:#6b5040;text-align:center;max-width:340px;">"Cooking is an art, but you eat with all five senses. That is the soul of hospitality."</p>
+                            <div style="margin-top:20px;font-family:'Great Vibes',cursive;font-size:clamp(1.4rem, 3.2vw, 2.2rem);color:#b8860b;">Bon Appétit</div>
+                        </div>
+                    `,
+                    pageNum: ''
+                },
+                right: {
+                    html: `
+                        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;height:100%;">
+                            <div style="font-family:'Playfair Display',serif;font-size:clamp(0.7rem, 1.4vw, 0.9rem);color:#c9a96e;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:16px;">— Chef's Tasting Menu —</div>
+                            <h1 style="text-align:center;line-height:1.1;margin-bottom:4px;">Marco<br>Valentini</h1>
+                            <div style="width:80px;height:2px;background:linear-gradient(90deg,transparent,#d4af37,transparent);margin:12px auto;"></div>
+                            <p style="color:#8b7355;letter-spacing:0.08em;text-align:center;font-size:clamp(0.8rem, 1.6vw, 1rem);">Executive Chef &<br>Hospitality Consultant</p>
+                            <div style="margin-top:20px;font-size:clamp(0.8rem, 1.5vw, 1rem);color:#b8860b;letter-spacing:0.2em;">★★★★★</div>
+                            <p style="font-size:clamp(0.7rem, 1.3vw, 0.85rem);color:#6b5040;margin-top:6px;font-style:italic;">15 Years of Culinary Excellence</p>
+                        </div>
+                    `,
+                    pageNum: '1'
+                }
+            }, {
+                left: {
+                    html: `
+                        <h2 class="ornament">About the Chef</h2>
+                        <p>Born in the sun-drenched hills of Tuscany, Marco Valentini discovered his passion for food at his grandmother's farmhouse table. The aroma of slow-simmered ragù, the texture of handmade pasta, and the magic of turning simple ingredients into memorable meals became the foundation of his culinary philosophy.</p>
+                        <p>After training at the prestigious <strong>Istituto Alberghiero di Firenze</strong>, Marco embarked on a journey through the kitchens of Europe — from rustic trattorias to Michelin-starred restaurants in Paris and Copenhagen.</p>
+                        <div class="ornament-divider">❧</div>
+                        <p style="font-style:italic;color:#8b7355;text-align:center;">"I believe every plate tells a story. My job is to make sure it's one worth remembering."</p>
+                    `,
+                    pageNum: '2'
+                },
+                right: {
+                    html: `
+                        <h2 class="ornament">Culinary Philosophy</h2>
+                        <p>Marco's approach is rooted in <strong>seasonality, sustainability, and soul</strong>. He champions farm-to-table practices, working directly with local producers.</p>
+                        <ul class="menu-list" style="margin-top: 10px;">
+                            <li><span class="item-name">Seasonal First</span><span class="item-detail">Peak-flavor ingredients</span></li>
+                            <li><span class="item-name">Zero Waste</span><span class="item-detail">Nose-to-tail, root-to-stem</span></li>
+                            <li><span class="item-name">Heritage Techniques</span><span class="item-detail">Modern twists on classics</span></li>
+                            <li><span class="item-name">Guest Experience</span><span class="item-detail">Every detail matters</span></li>
+                        </ul>
+                        <div class="ornament-divider">❧</div>
+                        <p style="text-align:center;color:#8b7355;font-size:0.85rem;"><strong>Specialties:</strong> Mediterranean • Modern Italian • Farm-to-Table</p>
+                        <div class="signature">Marco Valentini</div>
+                    `,
+                    pageNum: '3'
+                }
+            }, {
+                left: {
+                    html: `
+                        <h2 class="ornament">Career Highlights</h2>
+                        <ul class="menu-list">
+                            <li><span class="item-name">Executive Chef</span><span class="item-detail">Ristorante Aurora, Milano</span><span class="item-year">2020–</span></li>
+                            <li><span class="item-name">Head Chef</span><span class="item-detail">Le Jardin Secret, Paris</span><span class="item-year">2017–20</span></li>
+                            <li><span class="item-name">Sous Chef</span><span class="item-detail">Noma, Copenhagen</span><span class="item-year">2015–17</span></li>
+                            <li><span class="item-name">Chef de Partie</span><span class="item-detail">Osteria Francescana</span><span class="item-year">2013–15</span></li>
+                            <li><span class="item-name">Commis Chef</span><span class="item-detail">La Pergola, Roma</span><span class="item-year">2010–13</span></li>
+                        </ul>
+                        <div class="ornament-divider">❧</div>
+                        <p style="font-size:0.85rem;color:#6b5040;text-align:center;font-style:italic;">Trained under Massimo Bottura & René Redzepi</p>
+                    `,
+                    pageNum: '4'
+                },
+                right: {
+                    html: `
+                        <h2 class="ornament">Awards & Accolades</h2>
+                        <ul class="menu-list">
+                            <li><span class="item-name">Michelin Star</span><span class="item-detail">Ristorante Aurora</span><span class="item-year">2022</span></li>
+                            <li><span class="item-name">Gambero Rosso</span><span class="item-detail">Tre Forchette</span><span class="item-year">2021</span></li>
+                            <li><span class="item-name">Best New Restaurant</span><span class="item-detail">L'Espresso Guide</span><span class="item-year">2020</span></li>
+                            <li><span class="item-name">Rising Star Chef</span><span class="item-detail">Identità Golose</span><span class="item-year">2018</span></li>
+                            <li><span class="item-name">Bocuse d'Or</span><span class="item-detail">Silver Medal — Europe</span><span class="item-year">2017</span></li>
+                        </ul>
+                        <div class="ornament-divider">❧</div>
+                        <p style="text-align:center;color:#8b7355;font-size:0.85rem;"><strong>Languages:</strong> Italian • English • French • Spanish</p>
+                    `,
+                    pageNum: '5'
+                }
+            }, {
+                left: {
+                    html: `
+                        <h2 class="ornament">Signature Dishes</h2>
+                        <ul class="menu-list" style="margin-top: 10px;">
+                            <li><span class="item-name">Tartufo Nero Risotto</span><span class="item-detail">Aged Carnaroli, black truffle</span></li>
+                            <li><span class="item-name">Branzino al Cartoccio</span><span class="item-detail">Mediterranean sea bass, herbs</span></li>
+                            <li><span class="item-name">Anatra all'Arancia</span><span class="item-detail">Duck breast, blood orange glaze</span></li>
+                            <li><span class="item-name">Pappardelle al Cinghiale</span><span class="item-detail">Hand-cut pasta, wild boar ragù</span></li>
+                        </ul>
+                        <div class="ornament-divider">❧</div>
+                        <p style="font-size:0.85rem;color:#6b5040;text-align:center;font-style:italic;">Seasonal tasting menus available upon request</p>
+                    `,
+                    pageNum: '6'
+                },
+                right: {
+                    html: `
+                        <h2 class="ornament">Gallery</h2>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px, 2vw, 15px);margin-top:10px;">
+                            <div style="background:linear-gradient(135deg,#e8d5c0,#d4b896);aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem, 4vw, 3rem);color:#8b7355;border:1px solid rgba(180,150,100,0.4);">🍝</div>
+                            <div style="background:linear-gradient(135deg,#d5c8b5,#c4b08a);aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem, 4vw, 3rem);color:#8b7355;border:1px solid rgba(180,150,100,0.4);">🥩</div>
+                            <div style="background:linear-gradient(135deg,#e0ceb5,#c9b38f);aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem, 4vw, 3rem);color:#8b7355;border:1px solid rgba(180,150,100,0.4);">🍰</div>
+                            <div style="background:linear-gradient(135deg,#dcc8af,#bfa580);aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem, 4vw, 3rem);color:#8b7355;border:1px solid rgba(180,150,100,0.4);">🍷</div>
+                        </div>
+                        <p style="text-align:center;font-size:0.8rem;color:#8b7355;margin-top:12px;font-style:italic;">Photography by Alessandro Bianchi</p>
+                    `,
+                    pageNum: '7'
+                }
+            }, {
+                left: {
+                    html: `
+                        <h2 class="ornament">Get in Touch</h2>
+                        <p>Marco is available for <strong>private dining experiences, restaurant consulting, menu development, and culinary workshops</strong> worldwide.</p>
+                        <ul class="menu-list" style="margin-top: 10px;">
+                            <li><span class="item-name">Email</span><span class="item-detail">marco@valentini-chef.com</span></li>
+                            <li><span class="item-name">Phone</span><span class="item-detail">+39 331 234 5678</span></li>
+                            <li><span class="item-name">Location</span><span class="item-detail">Milano, Italia</span></li>
+                            <li><span class="item-name">Instagram</span><span class="item-detail">@chef.marco.valentini</span></li>
+                        </ul>
+                        <div class="ornament-divider">❧</div>
+                        <p style="text-align:center;font-size:0.85rem;color:#6b5040;">Available for international engagements</p>
+                    `,
+                    pageNum: '8'
+                },
+                right: {
+                    html: `
+                        <h2 class="ornament">Testimonials</h2>
+                        <div style="margin-top:8px;">
+                            <p style="font-style:italic;color:#4a3328;">"Marco's tasting menu was the most extraordinary culinary experience of my life. Every course was a revelation."</p>
+                            <p style="text-align:right;font-size:0.8rem;color:#8b7355;margin-top:-4px;">— Elena Rossi</p>
+                        </div>
+                        <div class="ornament-divider" style="margin:6px 0;">·</div>
+                        <div>
+                            <p style="font-style:italic;color:#4a3328;">"Working with Marco transformed our restaurant. His vision, precision, and warmth elevated every aspect of our kitchen."</p>
+                            <p style="text-align:right;font-size:0.8rem;color:#8b7355;margin-top:-4px;">— Jean-Luc Moreau</p>
+                        </div>
+                        <div class="ornament-divider" style="margin:6px 0;">·</div>
+                        <div>
+                            <p style="font-style:italic;color:#4a3328;">"A true master of his craft. Marco doesn't just cook — he creates memories that linger long after the last bite."</p>
+                            <p style="text-align:right;font-size:0.8rem;color:#8b7355;margin-top:-4px;">— Gambero Rosso Guide</p>
+                        </div>
+                    `,
+                    pageNum: '9'
+                }
+            }];
 
-  <!-- SPREAD 4: Signature Dishes -->
-  <div class="spread" data-s="4">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter IV</div>
-        <h2 class="ch-title">Signature<br><em>Dishes</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body" style="margin-bottom:11px">Each plate below has anchored the tasting menu at Restaurant Nuance for at least one full season — dishes the regulars return for, and the critics have never forgotten.</p>
-        <div class="dg">
-          <div class="dc"><div class="dph" style="background:linear-gradient(145deg,#c4b082,#a08858)"><svg width="26" height="26" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="#f5f0e8" stroke-width=".7" opacity=".32"/><path d="M10 22 Q18 12 26 22" stroke="#f5f0e8" stroke-width=".7" fill="none" opacity=".3"/></svg><span>Saffron Consommé</span></div><div class="dl">Consommé au Safran &amp; Moelle</div></div>
-          <div class="dc"><div class="dph" style="background:linear-gradient(145deg,#7a9068,#526045)"><svg width="26" height="26" viewBox="0 0 36 36" fill="none"><rect x="8" y="14" width="20" height="12" rx="6" stroke="#f5f0e8" stroke-width=".7" opacity=".3"/><circle cx="18" cy="20" r="3" fill="#f5f0e8" opacity=".22"/></svg><span>Pigeon &amp; Herb</span></div><div class="dl">Pigeon Rôti aux Herbes</div></div>
-          <div class="dc"><div class="dph" style="background:linear-gradient(145deg,#b89068,#7a5038)"><svg width="26" height="26" viewBox="0 0 36 36" fill="none"><path d="M8 24 Q18 10 28 24" stroke="#f5f0e8" stroke-width=".7" fill="none" opacity=".3"/><line x1="18" y1="10" x2="18" y2="26" stroke="#f5f0e8" stroke-width=".55" opacity=".2"/></svg><span>Duck Confit</span></div><div class="dl">Confit de Canard &amp; Chermoula</div></div>
-          <div class="dc"><div class="dph" style="background:linear-gradient(145deg,#d8c098,#b89860)"><svg width="26" height="26" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="8" stroke="#3a2e1a" stroke-width=".7" opacity=".28"/><circle cx="18" cy="18" r="4" fill="#3a2e1a" opacity=".1"/></svg><span>Tarte au Citron</span></div><div class="dl">Tarte Citron Confit &amp; Fleur de Sel</div></div>
-        </div>
-      </div>
-      <span class="pnum">8</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="ch-label" style="margin-bottom:7px">Dish Notes</div>
-        <div class="rule" style="margin-bottom:11px"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div style="margin-bottom:13px"><div class="rc-name">Consommé au Safran &amp; Moelle</div><p class="body">An entirely transparent broth, clarified over six hours, carrying threads of Moroccan saffron from Taliouine and a marrow quenelle rolled in ras el hanout. The bowl arrives with a single floating nasturtium petal.</p></div>
-        <div class="rule" style="margin:9px 0"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div style="margin-bottom:13px"><div class="rc-name">Pigeon Rôti aux Herbes du Jardin</div><p class="body">Squab from a single farm in Bresse, aged 36 hours in dry herb-salt before being spit-roasted. Served with a reduction of its own roasting juices and bitter herbs picked the morning of service.</p></div>
-        <div class="rule" style="margin:9px 0"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div><div class="rc-name">Confit de Canard &amp; Chermoula</div><p class="body">The duck leg is cured 48 hours in sea salt, lemon zest, and thyme before slow-rendering in its own fat. The chermoula — bright with coriander and preserved lemon — bridges Lyon and Fez.</p></div>
-      </div>
-      <span class="pnum">9</span>
-    </div>
-  </div>
+            const allPages = spreads.flatMap(s => [s.left, s.right]);
+            const totalPages = allPages.length;
+            
+            let currentIndex = 0; 
+            let isFlipping = false;
+            let isMobile = window.innerWidth <= 800;
 
-  <!-- SPREAD 5: Recipes -->
-  <div class="spread" data-s="5">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter V</div>
-        <h2 class="ch-title">From the Kitchen:<br><em>Recipes</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div class="rc">
-          <div class="rc-name">Soupe à l'Oignon Revisitée</div>
-          <div class="rc-meta"><span>⏱ 90 min</span><span>👤 Serves 4</span><span>🌡 Complex</span></div>
-          <ul class="ing"><li>1.2 kg sweet onions, sliced</li><li>80 g unsalted butter</li><li>200 ml dry white wine</li><li>1.2 L beef bone broth</li><li>4 slices sourdough</li><li>140 g Comté, grated</li><li>2 sprigs fresh thyme</li><li>1 bay leaf</li><li>Sea salt &amp; white pepper</li><li>1 tsp cider vinegar</li></ul>
-          <p class="body" style="font-size:.77rem">Caramelise onions in butter over low heat for a minimum of 45 minutes, stirring every 5 minutes, until deeply golden and reduced to a third of their original volume. Deglaze with wine, reduce by half, add broth and aromatics. Simmer 30 minutes. Season with vinegar, salt, white pepper. Ladle into oven-safe crocks, top with sourdough and Comté, gratin under the broiler until bubbling and charred at the edges.</p>
-          <p class="rn">Chef's note: The patience of the caramelisation is everything. Rushing this step by ten minutes is the difference between soup and sweetness.</p>
-        </div>
-      </div>
-      <span class="pnum">10</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="rc" style="margin-top:6px">
-          <div class="rc-name">Tarte Tatin aux Figues &amp; Romarin</div>
-          <div class="rc-meta"><span>⏱ 55 min</span><span>👤 Serves 6</span><span>🌡 Moderate</span></div>
-          <ul class="ing"><li>10 black figs, halved</li><li>160 g caster sugar</li><li>80 g cold butter, cubed</li><li>2 sprigs rosemary</li><li>1 tbsp honey</li><li>250 g puff pastry</li><li>Pinch Fleur de Sel</li><li>Crème fraîche, to serve</li></ul>
-          <p class="body" style="font-size:.77rem">In an ovenproof skillet, melt sugar to a deep amber caramel. Remove from heat, add butter, honey and rosemary, swirl to combine. Arrange figs cut-side down in the caramel. Drape cold puff pastry over, tucking edges inside the pan. Bake at 200°C for 22–25 minutes until pastry is deeply golden. Rest 5 minutes, then invert onto a serving plate in one confident motion.</p>
-          <p class="rn">Chef's note: The rosemary is not decoration — it is the conversation between the sweetness of fig and the edge of the caramel. Do not omit it.</p>
-        </div>
-        <div class="pq" style="margin-top:11px">
-          <p>"A recipe is a beginning. What you do with it in your own kitchen is the real cooking."</p>
-          <cite>— Mémoire &amp; Feu, 2023</cite>
-        </div>
-      </div>
-      <span class="pnum">11</span>
-    </div>
-  </div>
+            const pagesContainer = document.getElementById('pagesContainer');
+            const pageLeft = document.getElementById('pageLeft');
+            const pageRight = document.getElementById('pageRight');
+            const leftContent = document.getElementById('leftContent');
+            const rightContent = document.getElementById('rightContent');
+            const leftPageNum = document.getElementById('leftPageNum');
+            const rightPageNum = document.getElementById('rightPageNum');
+            
+            const flipElement = document.getElementById('flipElement');
+            const flipFrontContent = document.getElementById('flipFrontContent');
+            const flipBackContent = document.getElementById('flipBackContent');
+            const flipFrontPageNum = document.getElementById('flipFrontPageNum');
+            const flipBackPageNum = document.getElementById('flipBackPageNum');
+            
+            const shadowLeft = document.getElementById('shadowLeft');
+            const shadowRight = document.getElementById('shadowRight');
+            const flipFrontLighting = document.getElementById('flipFrontLighting');
+            const flipBackLighting = document.getElementById('flipBackLighting');
 
-  <!-- SPREAD 6: Seasons -->
-  <div class="spread" data-s="6">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter VI</div>
-        <h2 class="ch-title">The Seasons<br><em>&amp; Sourcing</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body drop">Restaurant Nuance has no printed menu. Each evening, eight to ten courses emerge from what arrived that morning. The kitchen maintains relationships with eleven farms, two fishermen, and one forager named Agnès, who brings in baskets of wild garlic, wood sorrel, and chanterelles depending on what the Rhône valley has given up.</p>
-        <div class="rule" style="margin:13px 0"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div class="seas">
-          <div class="seas-item"><div class="seas-name">Spring</div><p>Asparagus · Peas · Morels · Ramps · Strawberries · Young lamb · Fromage frais</p></div>
-          <div class="seas-item"><div class="seas-name">Summer</div><p>Tomatoes · Courgettes · Basil · Sea bass · Apricots · Lavender · Peaches</p></div>
-          <div class="seas-item"><div class="seas-name">Autumn</div><p>Cèpes · Figs · Quince · Duck · Walnuts · Endive · Black truffle (early)</p></div>
-          <div class="seas-item"><div class="seas-name">Winter</div><p>Black truffle · Cardoon · Blood orange · Pigeon · Oysters · Aged cheeses</p></div>
-        </div>
-      </div>
-      <span class="pnum">12</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc">
-        <div class="ch-label" style="margin-bottom:7px">Farming Partners</div>
-        <div class="rule" style="margin-bottom:11px"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <div class="aw-row"><div class="aw-icon">🌿</div><div class="aw-text"><strong>Ferme des Collines, Ain</strong><span>Heirloom vegetables, heritage pork — relationship since 2018</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🐔</div><div class="aw-text"><strong>Élevage Bressane Vallet</strong><span>Poulet de Bresse AOP and Squab — exclusive supply for Nuance</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🧀</div><div class="aw-text"><strong>Fromagerie Brunet, Savoie</strong><span>Beaufort d'alpage, aged Comté, seasonal fresh cheeses</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🐟</div><div class="aw-text"><strong>Pêcherie Côte Languedoc</strong><span>Line-caught sea bass, gilt-head bream, whole langoustines</span></div></div>
-        <div class="aw-row"><div class="aw-icon">🍄</div><div class="aw-text"><strong>Agnès Duval — Forager</strong><span>Wild mushrooms, greens, flowers, bark and roots from the Rhône valley</span></div></div>
-        <div style="border:1px solid rgba(176,125,42,.22);padding:5px;background:rgba(176,125,42,.04);margin-top:11px">
-          <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#7a9060,#4a6038);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-family:'Lora',serif;font-style:italic;font-size:.7rem;color:rgba(240,235,220,.52)">
-            <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><path d="M6 28 Q18 10 30 28" stroke="#f5f0e8" stroke-width=".8" fill="none" opacity=".38"/><circle cx="18" cy="20" r="2" fill="#f5f0e8" opacity=".38"/></svg>
-            Ferme des Collines — October
-          </div>
-          <p class="img-cap" style="margin-top:3px">October harvest at Ferme des Collines, Ain</p>
-        </div>
-      </div>
-      <span class="pnum">13</span>
-    </div>
-  </div>
+            window.addEventListener('resize', () => {
+                const newIsMobile = window.innerWidth <= 800;
+                if (newIsMobile !== isMobile) {
+                    isMobile = newIsMobile;
+                    if (!isMobile && currentIndex % 2 !== 0) {
+                        currentIndex--;
+                    }
+                    resetFlipElement();
+                    renderSpread();
+                }
+            });
 
-  <!-- SPREAD 7: Closing -->
-  <div class="spread" data-s="7">
-    <div class="curl"></div>
-    <div class="page page-l">
-      <div class="pc">
-        <div class="ch-label">Chapter VII</div>
-        <h2 class="ch-title" style="margin-bottom:16px">À Table —<br><em>Closing Words</em></h2>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p class="body drop" style="margin-top:13px">Cooking, for Élan, has never been a profession in the ordinary sense. It is a daily negotiation with nature, with memory, with the people who will sit at the table. Each evening at Nuance, as the first cover arrives and the kitchen falls silent, there is a moment — just a moment — of pure clarity. The food is ready. The room is warm. The story is about to begin.</p>
-        <p class="body" style="margin-top:11px">He does not know what tomorrow's menu will hold. He will wake at five, drive to the market, see what has come in from the farms, and decide then. This uncertainty, he says, is not anxiety. It is the only honest way to cook.</p>
-        <div class="pq" style="margin-top:16px">
-          <p>"To cook is to be perpetually, joyfully unfinished."</p>
-          <cite>— Élan Moreau</cite>
-        </div>
-      </div>
-      <span class="pnum">14</span>
-    </div>
-    <div class="page page-r">
-      <div class="pc title-center">
-        <div style="margin-bottom:8px">
-          <svg width="76" height="76" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="35" stroke="#b07d2a" stroke-width=".7" opacity=".28"/>
-            <circle cx="40" cy="40" r="27" stroke="#b07d2a" stroke-width=".45" opacity=".18"/>
-            <path d="M40 12 C40 12 22 24 22 40 C22 52 30 60 40 62 C50 60 58 52 58 40 C58 24 40 12 40 12Z" stroke="#b07d2a" stroke-width=".75" fill="none" opacity=".32"/>
-            <circle cx="40" cy="40" r="3.5" fill="#b07d2a" opacity=".22"/>
-          </svg>
-        </div>
-        <div class="ch-label" style="margin-bottom:5px">Restaurant Nuance</div>
-        <p style="font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:rgba(60,45,18,.55);line-height:1.85;margin-bottom:18px">18, Rue des Marronniers<br>69002 Lyon, France</p>
-        <div class="rule"><div class="rule-line"></div><div class="rule-gem"></div><div class="rule-line"></div></div>
-        <p style="font-size:.73rem;color:rgba(60,45,18,.42);letter-spacing:.12em;margin:13px 0">Reservations open 60 days in advance</p>
-        <p style="font-family:'Playfair Display',serif;font-size:.72rem;letter-spacing:.28em;color:var(--gold);opacity:.65">nuance-moreau.fr</p>
-        <div class="florish" style="margin-top:26px">✦ ✦ ✦</div>
-        <p style="font-family:'Lora',serif;font-style:italic;font-size:.76rem;color:rgba(60,45,18,.32);letter-spacing:.05em;margin-top:22px">Bon appétit.</p>
-      </div>
-      <span class="pnum">15</span>
-    </div>
-  </div>
+            function renderSpread() {
+                if (isMobile) {
+                    leftContent.innerHTML = allPages[currentIndex].html;
+                    leftPageNum.textContent = allPages[currentIndex].pageNum;
+                } else {
+                    leftContent.innerHTML = allPages[currentIndex].html;
+                    leftPageNum.textContent = allPages[currentIndex].pageNum;
+                    rightContent.innerHTML = allPages[currentIndex + 1].html;
+                    rightPageNum.textContent = allPages[currentIndex + 1].pageNum;
+                }
+            }
 
-</div><!-- /book-open -->
-</div><!-- /book-wrap -->
-</div><!-- /scene -->
+            function resetFlipElement() {
+                flipElement.style.display = 'none';
+                flipElement.style.animation = 'none';
+                shadowLeft.style.animation = 'none';
+                shadowRight.style.animation = 'none';
+                flipFrontLighting.style.animation = 'none';
+                flipBackLighting.style.animation = 'none';
+                
+                shadowLeft.style.opacity = '0';
+                shadowRight.style.opacity = '0';
+                flipFrontLighting.style.opacity = '0';
+                flipBackLighting.style.opacity = '0';
+                
+                flipElement.offsetHeight; 
+            }
 
-<!-- NAV ARROWS -->
-<button class="page-arrow" id="arr-prev" title="Previous spread" disabled>
-  <svg class="arr-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-</button>
-<button class="page-arrow" id="arr-next" title="Next spread">
-  <svg class="arr-icon" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-</button>
-<button id="close-btn" title="Close book">✕</button>
+            function flipForward() {
+                if (isFlipping) return;
 
-<script>
-(function(){
-  const spreads=document.querySelectorAll('.spread');
-  const cover=document.getElementById('book-cover');
-  const bookOpen=document.getElementById('book-open');
-  const stkL=document.getElementById('stk-l');
-  const stkR=document.getElementById('stk-r');
-  const arrPrev=document.getElementById('arr-prev');
-  const arrNext=document.getElementById('arr-next');
-  const closeBtn=document.getElementById('close-btn');
-  const N=spreads.length;
-  const DUR=780;
-  let cur=0,isOpen=false,busy=false;
+                if (isMobile) {
+                    if (currentIndex >= totalPages - 1) return;
+                    isFlipping = true;
 
-  const ANIM_CLASSES=['flip-out-fwd','flip-in-fwd','flip-out-bwd','flip-in-bwd'];
+                    flipElement.style.display = 'block';
+                    flipElement.className = 'flip-element single-forward';
 
-  function setStacks(){
-    const lp=Math.min(cur*1.2,7.5);
-    const rp=Math.min((N-1-cur)*1.2,8);
-    stkL.style.width=lp+'%';
-    stkR.style.width=rp+'%';
-  }
-  function updateUI(){
-    arrPrev.disabled=cur===0;
-    arrNext.disabled=cur===N-1;
-    setStacks();
-  }
+                    flipFrontContent.innerHTML = allPages[currentIndex].html;
+                    flipFrontPageNum.textContent = allPages[currentIndex].pageNum;
 
-  function stripAnimClasses(el){
-    ANIM_CLASSES.forEach(c=>el.classList.remove(c));
-  }
+                    leftContent.innerHTML = allPages[currentIndex + 1].html;
+                    leftPageNum.textContent = allPages[currentIndex + 1].pageNum;
 
-  function goTo(target){
-    if(busy||target===cur||target<0||target>=N)return;
-    busy=true;
-    const fwd=target>cur;
-    const out=spreads[cur];
-    const inn=spreads[target];
-    const outCls=fwd?'flip-out-fwd':'flip-out-bwd';
-    const inCls=fwd?'flip-in-fwd':'flip-in-bwd';
+                    void flipElement.offsetWidth;
 
-    // Clean any residual animation state
-    stripAnimClasses(out);
-    stripAnimClasses(inn);
-    out.style.cssText='';
-    inn.style.cssText='';
+                    const timingFunc = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+                    const duration = '0.8s';
 
-    // Set transform-origin dynamically
-    if(fwd){
-      out.style.transformOrigin='3% 50%';
-      inn.style.transformOrigin='97% 50%';
-    }else{
-      out.style.transformOrigin='97% 50%';
-      inn.style.transformOrigin='3% 50%';
-    }
+                    flipElement.style.animation = `flipSingleForward ${duration} ${timingFunc} forwards`;
 
-    // Stage incoming underneath
-    inn.classList.add('active');
-    inn.style.zIndex='8';
-    inn.style.opacity='1';
-    inn.style.transform='none';
+                    const onEnd = () => {
+                        flipElement.removeEventListener('animationend', onEnd);
+                        currentIndex++;
+                        resetFlipElement();
+                        isFlipping = false;
+                    };
+                    
+                    flipElement.addEventListener('animationend', onEnd);
+                    setTimeout(() => { if (isFlipping && flipElement.classList.contains('single-forward')) onEnd(); }, 900);
+                    
+                } else {
+                    if (currentIndex >= totalPages - 2) return;
+                    isFlipping = true;
 
-    // Animate outgoing on top
-    out.style.zIndex='15';
-    out.classList.add(outCls);
+                    const rightA = allPages[currentIndex + 1];
+                    const leftB = allPages[currentIndex + 2];
+                    const rightB = allPages[currentIndex + 3];
 
-    // Animate incoming with slight delay for a beautiful reveal
-    setTimeout(()=>{
-      inn.classList.add(inCls);
-    },DUR*0.12);
+                    flipElement.style.display = 'block';
+                    flipElement.className = 'flip-element flipping-forward';
 
-    let cleaned=false;
-    function done(){
-      if(cleaned)return;
-      cleaned=true;
-      // Strip all animation classes and inline styles from all spreads
-      spreads.forEach(s=>{
-        stripAnimClasses(s);
-        s.style.cssText='';
-      });
-      // Restore active spread
-      inn.classList.add('active');
-      inn.style.cssText='';
-      cur=target;
-      updateUI();
-      busy=false;
-    }
+                    flipFrontContent.innerHTML = rightA.html;
+                    flipBackContent.innerHTML = leftB.html;
 
-    // Listen for animationend on the outgoing spread
-    const h=()=>{out.removeEventListener('animationend',h);setTimeout(done,DUR*0.06);};
-    out.addEventListener('animationend',h,{once:true});
+                    flipFrontPageNum.style.left = 'auto';
+                    flipFrontPageNum.style.right = 'var(--page-padding-h)';
+                    flipBackPageNum.style.left = 'auto';
+                    flipBackPageNum.style.right = 'var(--page-padding-h)';
+                    
+                    flipFrontPageNum.textContent = rightA.pageNum;
+                    flipBackPageNum.textContent = leftB.pageNum;
 
-    // Fallback safety timeout
-    setTimeout(()=>{if(busy&&!cleaned){out.removeEventListener('animationend',h);done();}},DUR+220);
-  }
+                    rightContent.innerHTML = rightB.html;
+                    rightPageNum.textContent = rightB.pageNum;
 
-  function openBook(){
-    if(isOpen)return;
-    cover.classList.add('open');
-    setTimeout(()=>{
-      cover.style.display='none';
-      bookOpen.classList.add('vis');
-      arrPrev.classList.add('vis');
-      arrNext.classList.add('vis');
-      closeBtn.classList.add('vis');
-      isOpen=true;
-      setStacks();
-      updateUI();
-    },420);
-  }
-  function closeBook(){
-    if(!isOpen)return;
-    bookOpen.classList.remove('vis');
-    arrPrev.classList.remove('vis');
-    arrNext.classList.remove('vis');
-    closeBtn.classList.remove('vis');
-    cover.style.display='';
-    setTimeout(()=>cover.classList.remove('open'),20);
-    spreads.forEach(s=>{stripAnimClasses(s);s.style.cssText='';});
-    spreads[0].classList.add('active');
-    cur=0;busy=false;isOpen=false;
-    stkL.style.width='4%';stkR.style.width='7%';
-    updateUI();
-  }
+                    void flipElement.offsetWidth;
 
-  cover.addEventListener('click',openBook);
-  closeBtn.addEventListener('click',closeBook);
-  arrPrev.addEventListener('click',()=>{if(cur>0)goTo(cur-1)});
-  arrNext.addEventListener('click',()=>{if(cur<N-1)goTo(cur+1)});
+                    const timingFunc = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+                    const duration = '1.1s';
 
-  // TOC navigation
-  document.querySelectorAll('#toc li').forEach(li=>{
-    li.addEventListener('click',()=>{
-      const t=parseInt(li.dataset.go,10);
-      if(!isOpen){openBook();setTimeout(()=>goTo(t),620);}
-      else goTo(t);
-    });
-  });
+                    flipElement.style.animation = `flipForwardAnim ${duration} ${timingFunc} forwards`;
+                    
+                    shadowLeft.style.animation = `shadowLandOn ${duration} ${timingFunc} forwards`;
+                    shadowRight.style.animation = `shadowLiftOff ${duration} ${timingFunc} forwards`;
+                    flipFrontLighting.style.animation = `lightingTurnAway ${duration} ${timingFunc} forwards`;
+                    flipBackLighting.style.animation = `lightingTurnTowards ${duration} ${timingFunc} forwards`;
 
-  // Keyboard
-  document.addEventListener('keydown',e=>{
-    if(!isOpen)return;
-    if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();if(cur<N-1)goTo(cur+1);}
-    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();if(cur>0)goTo(cur-1);}
-    else if(e.key==='Escape')closeBook();
-  });
+                    const onEnd = () => {
+                        flipElement.removeEventListener('animationend', onEnd);
+                        currentIndex += 2;
+                        
+                        leftContent.innerHTML = leftB.html;
+                        leftPageNum.textContent = leftB.pageNum;
+                        
+                        resetFlipElement();
+                        isFlipping = false;
+                    };
+                    
+                    flipElement.addEventListener('animationend', onEnd);
+                    setTimeout(() => { if (isFlipping && flipElement.classList.contains('flipping-forward')) onEnd(); }, 1200);
+                }
+            }
 
-  // Touch swipe
-  let tx=0;
-  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
-  document.addEventListener('touchend',e=>{
-    if(!isOpen||busy)return;
-    const dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>44){
-      if(dx<0&&cur<N-1)goTo(cur+1);
-      else if(dx>0&&cur>0)goTo(cur-1);
-    }
-  },{passive:true});
+            function flipBackward() {
+                if (isFlipping || currentIndex <= 0) return;
+                isFlipping = true;
 
-  // Wheel
-  let wa=0,wt=0;
-  document.addEventListener('wheel',e=>{
-    if(!isOpen||busy)return;
-    const now=Date.now();
-    if(now-wt>400)wa=0;
-    wt=now;
-    wa+=e.deltaY;
-    if(Math.abs(wa)>90){
-      if(wa>0&&cur<N-1)goTo(cur+1);
-      else if(wa<0&&cur>0)goTo(cur-1);
-      wa=0;
-    }
-  },{passive:true});
+                if (isMobile) {
+                    flipElement.style.display = 'block';
+                    flipElement.className = 'flip-element single-backward';
 
-  updateUI();
-})();
-</script>
+                    flipFrontContent.innerHTML = allPages[currentIndex - 1].html;
+                    flipFrontPageNum.textContent = allPages[currentIndex - 1].pageNum;
+
+                    void flipElement.offsetWidth;
+
+                    const timingFunc = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+                    const duration = '0.8s';
+
+                    flipElement.style.animation = `flipSingleBackward ${duration} ${timingFunc} forwards`;
+
+                    const onEnd = () => {
+                        flipElement.removeEventListener('animationend', onEnd);
+                        currentIndex--;
+                        leftContent.innerHTML = allPages[currentIndex].html;
+                        leftPageNum.textContent = allPages[currentIndex].pageNum;
+                        
+                        resetFlipElement();
+                        isFlipping = false;
+                    };
+                    
+                    flipElement.addEventListener('animationend', onEnd);
+                    setTimeout(() => { if (isFlipping && flipElement.classList.contains('single-backward')) onEnd(); }, 900);
+
+                } else {
+                    const leftB = allPages[currentIndex];
+                    const rightA = allPages[currentIndex - 1];
+                    const leftA = allPages[currentIndex - 2];
+
+                    flipElement.style.display = 'block';
+                    flipElement.className = 'flip-element flipping-backward';
+
+                    flipFrontContent.innerHTML = leftB.html;
+                    flipBackContent.innerHTML = rightA.html;
+
+                    flipFrontPageNum.style.right = 'auto';
+                    flipFrontPageNum.style.left = 'var(--page-padding-h)';
+                    flipBackPageNum.style.right = 'auto';
+                    flipBackPageNum.style.left = 'var(--page-padding-h)';
+
+                    flipFrontPageNum.textContent = leftB.pageNum;
+                    flipBackPageNum.textContent = rightA.pageNum;
+
+                    leftContent.innerHTML = leftA.html;
+                    leftPageNum.textContent = leftA.pageNum;
+
+                    void flipElement.offsetWidth;
+
+                    const timingFunc = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+                    const duration = '1.1s';
+
+                    flipElement.style.animation = `flipBackwardAnim ${duration} ${timingFunc} forwards`;
+                    
+                    shadowRight.style.animation = `shadowLandOn ${duration} ${timingFunc} forwards`;
+                    shadowLeft.style.animation = `shadowLiftOff ${duration} ${timingFunc} forwards`;
+                    flipFrontLighting.style.animation = `lightingTurnAway ${duration} ${timingFunc} forwards`;
+                    flipBackLighting.style.animation = `lightingTurnTowards ${duration} ${timingFunc} forwards`;
+
+                    const onEnd = () => {
+                        flipElement.removeEventListener('animationend', onEnd);
+                        currentIndex -= 2;
+                        
+                        rightContent.innerHTML = rightA.html;
+                        rightPageNum.textContent = rightA.pageNum;
+                        
+                        resetFlipElement();
+                        isFlipping = false;
+                    };
+                    
+                    flipElement.addEventListener('animationend', onEnd);
+                    setTimeout(() => { if (isFlipping && flipElement.classList.contains('flipping-backward')) onEnd(); }, 1200);
+                }
+            }
+
+            pagesContainer.addEventListener('click', (e) => {
+                if (isFlipping || !isCoverOpen) return;
+                const rect = pagesContainer.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                if (clickX > rect.width / 2) {
+                    flipForward();
+                } else {
+                    flipBackward();
+                }
+            });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            const book = document.getElementById('book');
+            
+            book.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            book.addEventListener('touchend', (e) => {
+                if (!isCoverOpen) return;
+                const diffX = e.changedTouches[0].clientX - touchStartX;
+                const diffY = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+                    if (diffX < -30) flipForward();
+                    else if (diffX > 30) flipBackward();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!isCoverOpen) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        menuCover.click();
+                    }
+                    return;
+                }
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    flipForward();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    flipBackward();
+                }
+            });
+
+            function init() {
+                resetFlipElement();
+                renderSpread();
+            }
+            init();
+
+        })();
+    </script>
 </body>
 </html>
